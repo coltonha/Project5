@@ -1,5 +1,8 @@
 package project5;
 
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 public class PhoneBook extends BinaryTreeBasis{
     public PhoneBook() {
 
@@ -31,7 +34,27 @@ public class PhoneBook extends BinaryTreeBasis{
 	public void change(String searchKey, String newPhone){
 		retrieve(searchKey).setPhoneNumber(newPhone);
 	}
+    public void printPreorder() throws Exception {
+		printPreorder(root); 
+	}
     
+	protected void printPreorder(TreeNode node) throws Exception
+    {
+        if (node == null)
+            return;
+ 		FileOutputStream fos=new FileOutputStream("Phonebook.txt",true);
+		PrintWriter pw=new PrintWriter(fos);
+        /* first print data of node */
+        pw.println(node.getItem().toString());
+ 
+        /* then recur on left sutree */
+        printPreorder(node.getLeftChild());
+ 
+        /* now recur on right subtree */
+        printPreorder(node.getRightChild());
+		pw.close();
+    }
+
     protected TreeNode insertItem(TreeNode tNode, Person newItem) {
 		TreeNode newSubtree;
 		if (tNode == null) {

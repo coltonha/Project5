@@ -25,6 +25,6 @@ public void setPhoneNumber(String phone){
 }//set&get method:
 
 public String toString(){
-    return getName()+": "+getPhoneNumber();
+    return getPhoneNumber()+" "+getName();
 }
 }
