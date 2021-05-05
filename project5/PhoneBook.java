@@ -1,3 +1,10 @@
+/**
+ *  Project: #5
+ *  Source Code File:PhoneBook.java
+ *  Author: Sungwoong Ha
+ *  Description: This is java implementation of BST PhoneBook.
+ *  Due: 5/13/21
+ */
 package project5;
 
 import java.io.FileOutputStream;

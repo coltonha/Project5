@@ -1,3 +1,10 @@
+/**
+ *  Project: #5
+ *  Source Code File:Menu.java
+ *  Author: Sungwoong Ha
+ *  Description: This is java implementation of menu.
+ *  Due: 5/13/21
+ */
 package project5;
 
 import java.util.Scanner;
