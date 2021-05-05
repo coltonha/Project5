@@ -6,9 +6,25 @@ public class Person extends KeyedItem{
 
 
 public Person(String name, String phoneNumber){
-    super(name); //
+    super(name); // searchKey=name
     this.name=name;
     this.phoneNumber=phoneNumber;
 } //end constructor
 
+public String getName() {
+    return name;
+}
+public void setName(String name) {
+    this.name = name;
+}
+public String getPhoneNumber(){
+    return phoneNumber;
+}
+public void setPhoneNumber(String phone){
+    this.phoneNumber = phone;
+}//set&get method:
+
+public String toString(){
+    return getName()+": "+getPhoneNumber();
+}
 }

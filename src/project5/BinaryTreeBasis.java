@@ -1,34 +1,36 @@
 package project5;
 
-public class BinaryTreeBasis {
-    private TreeNode root;
-    
-    public BinaryTreeBasis(){
-        root=null;
-    } //end default constructor
-    
-    public BinaryTreeBasis(String rootItem){
-        root=new TreeNode(rootItem);
-    }//end constructor
+public abstract class BinaryTreeBasis {
+	protected TreeNode root;
+	
+	//default constructor creates null
+	public BinaryTreeBasis(){
+		root = null;
+	}
+	
+	//constructor to create start of tree
+	public BinaryTreeBasis(Person rootNode){
+		root = new TreeNode(rootNode);
+	}
+	
+	public boolean isEmpty(){
+		//returns true if tree is empty else returns false
+		return root == null;
+	}
+	
+	public void makeEmpty(){
+		//removes all nodes from tree
+		root = null;
+	}
+	
+	public Person getRootItem() throws TreeException{
+		if(root==null){
+			throw new TreeException( "Tree Exception: Empty Tree");
+		}else{
+			return root.getItem();
+		}
+	}
+	public abstract void setRootItem(Person newItem);
+	
 
-    public boolean isEmpty() {
-        // Returns true if the tree is empty, else returns false.
-        return root == null;
-    } // end isEmpty
-    
-    public void makeEmpty() {
-        // Removes all nodes from the tree.
-        root = null;
-    } // end makeEmpty
-    
-    public T getRootItem() throws TreeException {
-        // Returns the item in the tree’s root.
-        if (root == null) {
-            throw new TreeException("TreeException: Empty tree");
-        }
-        
-        else {
-            return root.item;
-        } // end if
-    } // end getRootItem
 }
