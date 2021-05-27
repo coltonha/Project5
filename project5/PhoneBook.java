@@ -7,8 +7,10 @@
  */
 package project5;
 
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
+
+import javax.swing.plaf.TreeUI;
+
 
 public class PhoneBook extends BinaryTreeBasis{
     public PhoneBook() {
@@ -44,7 +46,25 @@ public class PhoneBook extends BinaryTreeBasis{
     public void printPreorder() throws Exception {
 		printPreorder(root); 
 	}
+	public void printInorder() throws Exception {
+		printInorder(root); 
+	}
     
+	protected void printInorder(TreeNode node) throws Exception
+    {
+        if (node == null)
+            return;
+        /* first print left subtree */
+        printInorder(node.getLeftChild());
+		/* then recur on data of node */
+		FileOutputStream fos=new FileOutputStream("Phonebook.txt",true);
+		PrintWriter pw=new PrintWriter(fos);
+		pw.println(node.getItem().toString());
+		pw.close();
+        /* now recur on right subtree */
+        printInorder(node.getRightChild());
+    }
+
 	protected void printPreorder(TreeNode node) throws Exception
     {
         if (node == null)
@@ -53,13 +73,13 @@ public class PhoneBook extends BinaryTreeBasis{
 		PrintWriter pw=new PrintWriter(fos);
         /* first print data of node */
         pw.println(node.getItem().toString());
- 
+ 		pw.close();
         /* then recur on left sutree */
         printPreorder(node.getLeftChild());
  
         /* now recur on right subtree */
         printPreorder(node.getRightChild());
-		pw.close();
+		
     }
 
     protected TreeNode insertItem(TreeNode tNode, Person newItem) {

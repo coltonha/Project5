@@ -8,9 +8,8 @@
 package project5;
 
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
+
 
 
 public class Menu {
@@ -59,11 +58,11 @@ public class Menu {
 
         }while(!userOption.equals("q"));
         scnr.close();
-        FileOutputStream fos=new FileOutputStream("Phonebook.txt",false);
-		PrintWriter pw=new PrintWriter(fos);
-        pw.close();
-        bTree.printPreorder();
-        System.out.println();
+        FileOutputStream clear=new FileOutputStream("Phonebook.txt",false);
+		PrintWriter pwclear=new PrintWriter(clear);
+        pwclear.close();   //since data is already stored in bst, clear txt file
+        bTree.printInorder();    //write in txt file using inorder traverse
+        System.out.println(); 
     }
     
     static PhoneBook load() throws Exception{
