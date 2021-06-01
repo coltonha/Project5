@@ -8,16 +8,16 @@
 package project5;
 
 import java.io.*;
+import java.util.ArrayList;
 
-import javax.swing.plaf.TreeUI;
+public class PhoneBook {
+	protected TreeNode root;
 
-
-public class PhoneBook extends BinaryTreeBasis{
-    public PhoneBook() {
-
+	public PhoneBook() {
+		root=null;
     }
     public PhoneBook(Person rootItem){
-        super(rootItem);
+		root = new TreeNode(rootItem);
     }
     //end constructor*/;
 	public void setRootItem(Person newItem) throws UnsupportedOperationException {
@@ -32,24 +32,46 @@ public class PhoneBook extends BinaryTreeBasis{
 		return retrieveItem(root, searchKey);
 	}
 
-	public void delete(String searchKey) throws TreeException {
+	public void delete(String searchKey) throws Exception {
 		root = deleteItem(root, searchKey);
 	}
 
-	public void delete(Person item) throws TreeException {
-		root = deleteItem(root, item.getKey());
+	public void delete(Person item) throws Exception {
+		root = deleteItem(root, item.getName());
+	}
+	public void readtree(ArrayList<Person> arr, int start , int end){
+		root=readTree(arr, start, end);
 	}
 
 	public void change(String searchKey, String newPhone){
 		retrieve(searchKey).setPhoneNumber(newPhone);
 	}
+	
     public void printPreorder() throws Exception {
 		printPreorder(root); 
 	}
 	public void printInorder() throws Exception {
 		printInorder(root); 
 	}
-    
+
+	protected TreeNode readTree(ArrayList<Person> arr, int start , int end){
+        /* Base Case */
+        if (start > end) {
+            return null;
+        }
+        /* Get the middle element and make it root */
+        int mid = (start + end) / 2;
+        TreeNode tNode = new TreeNode(arr.get(mid));
+        /* Recursively construct the left subtree and make it
+         left child of root */
+        tNode.setLeftChild(readTree(arr, start, mid - 1));
+        /* Recursively construct the right subtree and make it
+         right child of root */
+        tNode.setRightChild(readTree(arr, mid + 1, end));
+          
+        return tNode;
+	}
+
 	protected void printInorder(TreeNode node) throws Exception
     {
         if (node == null)
@@ -92,7 +114,7 @@ public class PhoneBook extends BinaryTreeBasis{
 		}
 		Person nodeItem = tNode.getItem();
 		// search for the insertion position
-		if (newItem.getKey().compareTo(nodeItem.getKey()) < 0) { //compareTo works on String(keyeditem) lexicographically
+		if (newItem.getName().compareTo(nodeItem.getName()) < 0) { //compareTo works on String(keyeditem) lexicographically
 			// search the left subtree
 			newSubtree = insertItem(tNode.getLeftChild(), newItem);
 			tNode.setLeftChild(newSubtree);
@@ -107,15 +129,14 @@ public class PhoneBook extends BinaryTreeBasis{
 
     protected Person retrieveItem(TreeNode tNode, String searchKey) {
 		Person treeItem;
-
 		if (tNode == null) {
 			treeItem = null;
 		} else {
 			Person nodeItem = tNode.getItem();
-			if (searchKey.compareTo(nodeItem.getKey()) == 0) {
+			if (searchKey.compareTo(nodeItem.getName()) == 0) {
 				// item is in the root of some subtree
 				treeItem = tNode.getItem();
-			} else if (searchKey.compareTo(nodeItem.getKey()) < 0) {
+			} else if (searchKey.compareTo(nodeItem.getName()) < 0) {
 				// search the left subtree
 				treeItem = retrieveItem(tNode.getLeftChild(), searchKey);
 			} else { // search the right subtree
@@ -125,19 +146,19 @@ public class PhoneBook extends BinaryTreeBasis{
 		return treeItem;
 	}
 
-    protected TreeNode deleteItem(TreeNode tNode, String searchKey) {
+    protected TreeNode deleteItem(TreeNode tNode, String searchKey) throws Exception {
 		// calls delete Node
 		TreeNode newSubtree;
 		if (tNode == null) {
-			throw new TreeException("TreeException:Item is now found");
+			throw new Exception();
 		} else {
 			Person nodeItem = tNode.getItem();
-			if (searchKey.compareTo(nodeItem.getKey()) == 0) {
+			if (searchKey.compareTo(nodeItem.getName()) == 0) {
 				// item is in the root of some subtree
 				tNode = deleteNode(tNode); // delete the item
 			}
 			// else search for the item
-			else if (searchKey.compareTo(nodeItem.getKey()) < 0) {
+			else if (searchKey.compareTo(nodeItem.getName()) < 0) {
 				newSubtree = deleteItem(tNode.getLeftChild(), searchKey);
 				tNode.setLeftChild(newSubtree);
 			} else {// search the right tree
@@ -147,9 +168,7 @@ public class PhoneBook extends BinaryTreeBasis{
 			}
 		}
 		return tNode;
-
 	}
-
 	
 	protected TreeNode deleteNode(TreeNode tNode) {
 		// Algorithm note: there are four cases to consider:

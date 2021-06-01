@@ -7,13 +7,12 @@
  */
 package project5;
 
-public class Person extends KeyedItem{
+public class Person{
     private String name;
     private String phoneNumber;
 
 
 public Person(String name, String phoneNumber){
-    super(name); // searchKey=name
     this.name=name;
     this.phoneNumber=phoneNumber;
 } //end constructor

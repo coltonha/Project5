@@ -7,6 +7,7 @@
  */
 package project5;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
@@ -67,18 +68,19 @@ public class Menu {
     
     static PhoneBook load() throws Exception{
         PhoneBook aTree=new PhoneBook();
+        ArrayList<Person> arr= new ArrayList<Person>();
         File phonebookFile= new File("Phonebook.txt");
         Scanner phonebookScanner= new Scanner(phonebookFile);
-
+        
         while(phonebookScanner.hasNext()){
             String phonenumber=phonebookScanner.next();
             String name=phonebookScanner.next();
             Person temp=new Person(name,phonenumber);
-            aTree.insert(temp);
-        }
+            arr.add(temp);
+        } 
         phonebookScanner.close();
-        return aTree;
+        aTree.readtree(arr, 0,arr.size()-1);
+        System.out.println();
+    return aTree;
     }
-
-
 }
